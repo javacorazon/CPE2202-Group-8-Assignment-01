@@ -18,4 +18,4 @@ This project simulates task allocation in a cloud-edge computing environment.
    pip install networkx matplotlib
 
 2. Run:
-   python graph.py
+   python simulator.py
