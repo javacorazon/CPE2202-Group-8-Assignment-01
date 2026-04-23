@@ -1,24 +1,3 @@
-# =========================================================
-# CAPSTONE PROJECT: RESOURCE ALLOCATION IN CLOUD-EDGE CONTINUUM
-# Group Project 8
-#
-# Weeks Covered:
-#   Week 2 - System Modeling (nodes, tasks, data structures)
-#   Week 4 - Graph Representation + BFS + Greedy Scheduler
-#   Week 6 - Dynamic Programming + Policy Comparison
-#   Week 7 - Complete Simulator + Metrics + Plots
-#
-# Policies Implemented:
-#   1. Greedy   - Assign to fastest/least-loaded node
-#   2. DP       - Optimal allocation over short time windows
-#   3. Heuristic - Load balancing with deadline awareness
-#
-# Metrics Tracked:
-#   - Missed deadlines per policy
-#   - Total energy consumed per policy
-#   - Average latency per policy
-# =========================================================
-
 import random
 import copy
 import time
