@@ -312,7 +312,7 @@ def collect_metrics(results, policy_name):
 
 
 # ===========================================================
-# VISUALISATION — Week 7
+# VISUALISATION — Week 7 (excluding per-task timeline)
 # ===========================================================
 
 def visualize_network(graph, nodes, title="Network State"):
@@ -379,41 +379,6 @@ def visualize_policy_comparison(metrics_list):
     for i, v in enumerate(latency):
         axes[2].text(i, v + 0.2, str(v), ha="center", fontweight="bold")
 
-    plt.tight_layout()
-
-
-def visualize_task_timeline(greedy_res, dp_res, heuristic_res):
-    """
-    Per-task latency vs deadline for each policy.
-    """
-    fig, axes = plt.subplots(3, 1, figsize=(14, 10), sharex=True)
-    fig.suptitle("Per-Task Latency vs Deadline", fontsize=13, fontweight="bold")
-
-    configs = [
-        (greedy_res,    "Greedy",    "#ef5350"),
-        (dp_res,        "DP",        "#42a5f5"),
-        (heuristic_res, "Heuristic", "#66bb6a"),
-    ]
-
-    for ax, (results, label, color) in zip(axes, configs):
-        ids       = [r["task_id"]  for r in results]
-        latencies = [r["latency"]  for r in results]
-        deadlines = [r["deadline"] for r in results]
-
-        ax.plot(ids, latencies, marker="o", color=color,
-                label="Latency", linewidth=2)
-        ax.plot(ids, deadlines, marker="x", color="#555",
-                linestyle="--", label="Deadline", linewidth=1.5)
-        ax.fill_between(ids, latencies, deadlines,
-                        where=[l > d for l, d in zip(latencies, deadlines)],
-                        alpha=0.25, color="red", label="Missed")
-
-        ax.set_title(f"{label} Policy", fontweight="bold")
-        ax.set_ylabel("Time (ms)")
-        ax.legend(loc="upper right", fontsize=8)
-        ax.grid(True, alpha=0.3)
-
-    axes[-1].set_xlabel("Task ID")
     plt.tight_layout()
 
 
@@ -541,13 +506,12 @@ def main():
     # --- Complexity report ---
     print_complexity_report()
 
-    # --- Visualisations ---
+    # --- Visualisations (without per-task timeline) ---
     print("\n  Generating plots...")
 
     visualize_network(GRAPH, nodes_g,
                       title="Network After Greedy Allocation")
     visualize_policy_comparison(metrics)
-    visualize_task_timeline(greedy_res, dp_res, heuristic_res)
     visualize_node_distribution(greedy_res, dp_res,
                                 heuristic_res, NODES)
 
